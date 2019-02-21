@@ -52,6 +52,20 @@ app.get('/recipes/:id', async (req, res, next) => {
         res.status(500).json({errorMessage: "Could not fetch that recipe"})
     }
 })
+app.post( '/dishes' , async (req, res, next) => {
+    const { name } = req.body;
+    if (!name) {
+        return res.status(404).json({errorMessage: "Please provide a name field for the new dish."})
+    }
+    try {
+        const [id] = await recipesDB.addDish({name});
+        
+        res.status(201).json({id});
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({errorMessage: 'Could not add that dishs'})
+    }
+})
 
 
 

@@ -33,10 +33,15 @@ const getRecipe = async (id) => {
     }
 }
 
+const addDish = (dish) => {
+    return db('dishes').insert(dish);
+}
+
 
 module.exports = {
     getDishes,
     getDish,
     getRecipes,
-    getRecipe
+    getRecipe,
+    addDish
 }
