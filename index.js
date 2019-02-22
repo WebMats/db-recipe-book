@@ -79,6 +79,10 @@ app.post('/recipes', async (req, res, next) => {
         res.status(500).json({errorMessage: 'Could not add that recipe'})
     }
 })
+app.get('/recipes/:id/ingredients', async (req, res, next) => {
+    const ingredientList = await recipesDB.getShoppingList(req.params.id);
+    res.status(200).json(ingredientList);
+})
 
 
 

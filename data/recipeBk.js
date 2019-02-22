@@ -39,7 +39,12 @@ const addDish = (dish) => {
 const addRecipe = (recipe) => {
     return db('recipes').insert(recipe);
 }
-
+const getShoppingList = (id) => {
+    return db('ingredients_for_recipe')
+                .where({'recipe_id': id})
+                .join('ingredients', {'ingredients.id' : 'ingredients_for_recipe.ingredient_id'})
+                .select('ingredients.name', 'ingredients_for_recipe.quantity')
+}
 
 module.exports = {
     getDishes,
@@ -47,5 +52,6 @@ module.exports = {
     getRecipes,
     getRecipe,
     addDish,
-    addRecipe
+    addRecipe,
+    getShoppingList
 }
