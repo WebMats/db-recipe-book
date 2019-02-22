@@ -36,6 +36,9 @@ const getRecipe = async (id) => {
 const addDish = (dish) => {
     return db('dishes').insert(dish);
 }
+const addRecipe = (recipe) => {
+    return db('recipes').insert(recipe);
+}
 
 
 module.exports = {
@@ -43,5 +46,6 @@ module.exports = {
     getDish,
     getRecipes,
     getRecipe,
-    addDish
+    addDish,
+    addRecipe
 }

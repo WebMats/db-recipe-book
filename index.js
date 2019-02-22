@@ -63,7 +63,20 @@ app.post( '/dishes' , async (req, res, next) => {
         res.status(201).json({id});
     } catch (err) {
         console.log(err)
-        res.status(500).json({errorMessage: 'Could not add that dishs'})
+        res.status(500).json({errorMessage: 'Could not add that dish'})
+    }
+})
+app.post('/recipes', async (req, res, next) => {
+    const { name, dish_id } = req.body;
+    if (!name || !dish_id) {
+        return res.status(404).json({errorMessage: "Please fill both the name and dish_id fields for the new dish."})
+    }
+    try {
+        const [id] = await recipesDB.addRecipe({name, dish_id});
+        res.status(201).json({id})
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({errorMessage: 'Could not add that recipe'})
     }
 })
 
