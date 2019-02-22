@@ -80,8 +80,17 @@ app.post('/recipes', async (req, res, next) => {
     }
 })
 app.get('/recipes/:id/ingredients', async (req, res, next) => {
-    const ingredientList = await recipesDB.getShoppingList(req.params.id);
-    res.status(200).json(ingredientList);
+    try {
+        const ingredientList = await recipesDB.getShoppingList(req.params.id);
+        if (!ingredientList.length > 0) {
+            res.status(404).json({errorMessage: "The recipe with that id does not exist, or that recipe has no ingredients yet."})
+        } else {
+            res.status(200).json(ingredientList);
+        }
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({errorMessage: "Could not get the ingredient list for that recipe"})
+    }
 })
 
 
